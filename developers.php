@@ -60,7 +60,7 @@
                             <div class="col-lg-6">
                                 <div class="si-text">
                                     <div class="si-title">
-                                        <h4>Subha Rami Reddy</h4>
+                                        <h4>Subba Rami Reddy</h4>
                                         <span>Backend Developer</span>
                                     </div>
                                     <div class="si-social">

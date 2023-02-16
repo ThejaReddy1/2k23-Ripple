@@ -1,4 +1,6 @@
 <?php
+require_once 'AtomAES.php';
+
 
 /**
  * Version 1.0
@@ -16,36 +18,55 @@ class TransactionRequest
     private $amount;
 
     private $transactionCurrency;
-    
+
     private $transactionAmount;
-    
+
     private $clientCode;
-    
+
     private $transactionId;
-    
+
     private $transactionDate;
 
     private $customerAccount;
-    
+
     private $customerName;
-    
+
     private $customerEmailId;
 
     private $customerMobile;
-    
+
     private $customerBillingAddress;
-    
+
     private $returnUrl;
-    
+
     private $mode = "test";
-	
-	private $transactionUrl;
 
-	private $nbType = "NBFundTransfer";
-	
-	private $ccType = "CCFundTransfer";
+    private $transactionUrl;
 
-	private $reqHashKey = "";
+    private $nbType = "NBFundTransfer";
+
+    private $ccType = "CCFundTransfer";
+
+    private $reqHashKey = "";
+
+    private $salt = "";
+
+    private $requestEncypritonKey = "";
+
+    private $responseEncryptionKey = "";
+
+
+    public function setRequestEncypritonKey($key){
+        $this->requestEncypritonKey = $key;
+    }
+
+    public function setResponseEncypritonKey($key){
+        $this->responseEncryptionKey = $key;
+    }
+
+    public function setSalt($saltEntered){
+        $this->salt = $saltEntered;
+    }
 
 
     /**
@@ -79,7 +100,7 @@ class TransactionRequest
     {
         $this->respHashKey = $respHashKey;
     }
-	
+
 
 
 
@@ -98,8 +119,8 @@ class TransactionRequest
     {
         $this->login = $login;
     }
-	
-	/**
+
+    /**
      * @return the $password
      */
     public function getPassword()
@@ -114,8 +135,8 @@ class TransactionRequest
     {
         $this->password = $password;
     }
-	
-	/**
+
+    /**
      * @return the $transactionType
      */
     public function getTransactionType()
@@ -130,8 +151,8 @@ class TransactionRequest
     {
         $this->transactionType = $transactionType;
     }
-	
-	/**
+
+    /**
      * @return the $productId
      */
     public function getProductId()
@@ -146,8 +167,8 @@ class TransactionRequest
     {
         $this->productId = $productId;
     }
-	
-	/**
+
+    /**
      * @return the $amount
      */
     public function getAmount()
@@ -163,7 +184,7 @@ class TransactionRequest
         $this->amount = $amount;
     }
 
-	/**
+    /**
      * @return the $transactionCurrency
      */
     public function getTransactionCurrency()
@@ -178,8 +199,8 @@ class TransactionRequest
     {
         $this->transactionCurrency = $transactionCurrency;
     }
-	
-	/**
+
+    /**
      * @return the $transactionAmount
      */
     public function getTransactionAmount()
@@ -194,8 +215,8 @@ class TransactionRequest
     {
         $this->transactionAmount = $transactionAmount;
     }
-	
-	/**
+
+    /**
      * @return the $transactionId
      */
     public function getTransactionId()
@@ -210,8 +231,8 @@ class TransactionRequest
     {
         $this->transactionId = $transactionId;
     }
-	
-	/**
+
+    /**
      * @return the $transactionDate
      */
     public function getTransactionDate()
@@ -226,8 +247,8 @@ class TransactionRequest
     {
         $this->transactionDate = $transactionDate;
     }
-	
-	/**
+
+    /**
      * @return the $customerAccount
      */
     public function getCustomerAccount()
@@ -242,8 +263,8 @@ class TransactionRequest
     {
         $this->customerAccount = $customerAccount;
     }
-	
-	/**
+
+    /**
      * @return the $customerName
      */
     public function getCustomerName()
@@ -258,8 +279,8 @@ class TransactionRequest
     {
         $this->customerName = $customerName;
     }
-	
-	/**
+
+    /**
      * @return the $customerEmailId
      */
     public function getCustomerEmailId()
@@ -274,8 +295,8 @@ class TransactionRequest
     {
         $this->customerEmailId = $customerEmailId;
     }
-	
-	/**
+
+    /**
      * @return the $customerMobile
      */
     public function getCustomerMobile()
@@ -290,8 +311,8 @@ class TransactionRequest
     {
         $this->customerMobile = $customerMobile;
     }
-	
-	/**
+
+    /**
      * @return the $customerBillingAddress
      */
     public function getCustomerBillingAddress()
@@ -306,8 +327,8 @@ class TransactionRequest
     {
         $this->customerBillingAddress = $customerBillingAddress;
     }
-	
-	/**
+
+    /**
      * @return the $returnUrl
      */
     public function getReturnUrl()
@@ -322,8 +343,8 @@ class TransactionRequest
     {
         $this->returnUrl = $returnUrl;
     }
-	
-	/**
+
+    /**
      * @return the $mode
      */
     public function getMode()
@@ -338,8 +359,8 @@ class TransactionRequest
     {
         $this->mode = $mode;
     }
-	
-	/**
+
+    /**
      * @return the $transactionUrl
      */
     public function getTransactionUrl()
@@ -354,80 +375,76 @@ class TransactionRequest
     {
         $this->transactionUrl = $transactionUrl;
     }
-	
-	public function getnbType() {
-		return $this->nbType;
-	}
 
-	public function getccType() {
-		return $this->ccType;
-	}
-	
-	private function setUrl() {
-		$port = 443;
-		if($this->getMode() == "live"){
-			$url = "https://payment.atomtech.in/paynetz/epi/fts";
-		} else {
-			$url = "https://paynetzuat.atomtech.in/paynetz/epi/fts";
-		}
-		$this->setTransactionUrl($url);
-		$this->setPort($port);
-	}
-	
-	public function setClientCode($clientCode) {
-		if($clientCode == NULL || $clientCode == ""){
-			$this->clientCode = urlencode(base64_encode(123));
-		} else {
-			$this->clientCode = urlencode(base64_encode($clientCode));
-		}
-	}
-	
-	private function getClientCode() {
-		return $this->clientCode;
-	}
-	
-	private function setPort($port) {
-		$this->port = $port;
-	}
-	
-	private function getPort() {
-		return $this->port;
-	}
+    public function getnbType() {
+        return $this->nbType;
+    }
+
+    public function getccType() {
+        return $this->ccType;
+    }
+
+    public function setUrl($url) {
+        $port = 443;		
+        $this->setTransactionUrl($url);
+        $this->setPort($port);
+    }
+
+    public function setClientCode($clientCode) {
+        if($clientCode == NULL || $clientCode == ""){
+            $this->clientCode = urlencode(base64_encode(123));
+        } else {
+            $this->clientCode = urlencode(base64_encode($clientCode));
+        }
+    }
+
+    private function getClientCode() {
+        return $this->clientCode;
+    }
+
+    private function setPort($port) {
+        $this->port = $port;
+    }
+
+    private function getPort() {
+        return $this->port;
+    }
 
 
-	public function getChecksum(){
+    public function getChecksum(){
         $str = $this->login . $this->password . "NBFundTransfer" . $this->productId . $this->transactionId . $this->amount . "INR";
-       // echo $str;exit;
-        $signature =  hash_hmac("sha512",$str,$this->reqHashKey,false);
+        $signature = hash_hmac("sha512",$str,$this->reqHashKey);
+
         return $signature;
     }
 
+    //Change & to | in production
     private function getData(){
-		$strReqst = "";
-		$strReqst .= "login=".$this->getLogin();
-		$strReqst .= "&pass=".$this->getPassword();
-		//$txnType = $this->getTransactionType();
-		//if($txnType== 'NB'){
-        $strReqst .= "&ttype=NBFundTransfer";
-		//}else{
-			//$strReqst .= "&ttype=".$this->getccType();
-		//}
-		$strReqst .= "&prodid=".$this->getProductId();
-		$strReqst .= "&amt=".$this->getAmount();
-		$strReqst .= "&txncurr=".$this->getTransactionCurrency();
-		$strReqst .= "&txnscamt=".$this->getTransactionAmount();
-		$strReqst .= "&ru=".$this->getReturnUrl();
-		$strReqst .= "&clientcode=".$this->getClientCode();
-		$strReqst .= "&txnid=".$this->getTransactionId();
-		$strReqst .= "&date=".$this->getTransactionDate();
-		$strReqst .= "&udf1=".$this->getCustomerName();
-		$strReqst .= "&udf2=".$this->getCustomerEmailId();
-		$strReqst .= "&udf3=".$this->getCustomerMobile();
-		$strReqst .= "&udf4=".$this->getCustomerBillingAddress();
-		$strReqst .= "&custacc=".$this->getCustomerAccount();
-        $strReqst .= "&signature=".$this->getChecksum();
+        $datenow = date("d/m/Y h:m:s");
+        $transactionDate = str_replace(" ", "%20", $datenow);
+        $strReqst = "";
+        $strReqst .= "login=".$this->getLogin();
+        $strReqst .= "&pass=".$this->getPassword();
 
-		return $strReqst;
+        $strReqst .= "&ttype=NBFundTransfer";
+
+        $strReqst .= "&prodid=".$this->getProductId();
+        $strReqst .= "&amt=".$this->getAmount();
+        $strReqst .= "&txncurr=".$this->getTransactionCurrency();
+        $strReqst .= "&txnscamt=".$this->getTransactionAmount();
+        $strReqst .= "&ru=".$this->getReturnUrl();
+        $strReqst .= "&clientcode=".$this->getClientCode();
+        $strReqst .= "&txnid=".$this->getTransactionId();
+        $strReqst .= "&date=".$this->getTransactionDate();
+        $strReqst .= "&udf1=".$this->getCustomerName();
+        $strReqst .= "&udf2=".$this->getCustomerEmailId();
+        $strReqst .= "&udf3=".$this->getCustomerMobile();
+        $strReqst .= "&udf4=".$this->getCustomerBillingAddress();
+        $strReqst .= "&custacc=".$this->getCustomerAccount();
+        $strReqst .= "&signature=".$this->getChecksum();
+        $atomenc = new AtomAES();
+        $encData = $atomenc->encrypt($strReqst, $this->requestEncypritonKey, $this->salt);
+        return "login=".$this->getLogin()."&encdata=".strtoupper($encData); // do not change in this line
     }
 
     /**
@@ -437,10 +454,9 @@ class TransactionRequest
     public function getPGUrl(){
         if ($this->mode != null && $this->mode != "") {
             try {
-				$this->setUrl();
                 $data = $this->getData();
-				$this->writeLog($data);
-				return $this->transactionUrl . "?" .$data;
+                $this->writeLog($data);
+                return $this->transactionUrl . "?" .$data;
             } catch ( Exception $ex ) {
                 echo "Error while getting transaction token : " . $ex->getMessage();
                 return;
@@ -449,14 +465,14 @@ class TransactionRequest
             return "Please set mode live or test";
         }
     }
-	
-	private function writeLog($data){
-		$fileName = "date".date("Y-m-d").".txt";
-		$fp = fopen("log/".$fileName, 'a+');
-		$data = date("Y-m-d H:i:s")." - ".$data;
-		fwrite($fp,$data);
-		fclose($fp);
-	}
-    
+
+    private function writeLog($data){
+        $fileName = "date".date("Y-m-d").".txt";
+        $fp = fopen("log/".$fileName, 'a+');
+        $data = date("Y-m-d H:i:s")." - ".$data;
+        fwrite($fp,$data);
+        fclose($fp);
+    }
+
 
 }

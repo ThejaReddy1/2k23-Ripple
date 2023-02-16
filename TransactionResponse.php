@@ -1,8 +1,12 @@
 <?php
 
+require_once 'AtomAES.php';
+
 class TransactionResponse {
 
     private $respHashKey = "";
+    private $responseEncryptionKey = "";
+    private $salt = "";
 
     /**
      * @return string
@@ -10,6 +14,14 @@ class TransactionResponse {
     public function getRespHashKey()
     {
         return $this->respHashKey;
+    }
+    
+    public function setResponseEncypritonKey($key){
+        $this->responseEncryptionKey = $key;
+    }
+    
+    public function setSalt($saltEntered){
+        $this->salt = $saltEntered;
     }
 
     /**
@@ -20,7 +32,25 @@ class TransactionResponse {
         $this->respHashKey = $respHashKey;
     }
 
+    public function decryptResponseIntoArray($encdata){
 
+        $atomenc = new AtomAES();
+        $decrypted = $atomenc->decrypt($encdata, $this->responseEncryptionKey, $this->salt);
+        $array_response = explode('&', $decrypted); //change & to | for production
+        $equalSplit = array();
+        foreach ($array_response as $ar) {
+            $equalSub = explode('=', $ar);
+            if(!empty($equalSub[1]) && !empty($equalSub[0])){
+                $temp = array(
+                    $equalSub[0] => $equalSub[1],
+                );
+                $equalSplit += $temp;
+            }
+        }
+        
+        return $equalSplit;
+
+    }
 
     public function validateResponse($responseParams)
     {
