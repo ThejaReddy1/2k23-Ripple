@@ -1,7 +1,7 @@
 <?php include "header.php" ?>
 <?php
-    //$f_code=$_POST['f_code'];
-    if(1)
+    $f_code=$_POST['f_code'];
+    if($f_code=='Ok')
     {
         ?>
     <div>
