@@ -1,6 +1,6 @@
 <?php include "header.php" ?>
 <?php
-    $f_code=$_POST['f_code'];
+    echo $f_code=$_POST['f_code'];
     if($f_code=='Ok')
     {
         ?>
@@ -29,15 +29,15 @@
                     <div class="col-sm-4 invoice-col">
                         To
                         <address>
-                            <strong><?php echo $_POST['udf1'] ?></strong><br>
-                            Event Name:<?php echo $_POST['clientcode'] ?> <br>
-                            Phone: <?php echo $_POST['udf3'] ?><br>
-                            Email: <?php echo $_POST['udf2'] ?>
+                            <strong><?php echo $_POST['name'] ?></strong><br>
+                            Event Name:<?php echo $_POST['event'] ?> <br>
+                            Phone: <?php echo $_POST['phone'] ?><br>
+                            Email: <?php echo $_POST['email'] ?>
                         </address>
                     </div>
                     <div class="col-sm-4 invoice-col">
                     <strong>Invoice</strong><br>
-                    <b>Event ID:</b> <?php echo $_POST['udf4'] ?><br>
+                    <b>Event ID:</b> <?php echo $_POST['eventid'] ?><br>
                     <b>Payment Date:</b> <?php echo $_POST['date'] ?><br>
                      
                 </div>
@@ -54,8 +54,8 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><?php echo $_POST['udf4'] ?></td>
-                                    <td><?php echo $_POST['clientcode'] ?></td>
+                                    <td><?php echo $_POST['eventid'] ?></td>
+                                    <td><?php echo $_POST['event'] ?></td>
                                     <td> <?php echo $_POST['amt'] ?></td>
                                 </tr>
                             </tbody>

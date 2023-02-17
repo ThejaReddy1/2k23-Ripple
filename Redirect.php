@@ -1,4 +1,52 @@
 <?php
+   require_once 'dbconnect.php';
+    if($_SERVER['REQUEST_METHOD']=='POST')
+    {
+          $firstname=ucfirst($_POST["fname"]);
+          $lastname=ucfirst($_POST["lname"]);
+          $gender=$_POST['gender'];
+          $collegeid=strtoupper($_POST["collegeid"]);
+          $phoneno=$_POST["phone"];
+          $email=$_POST["email"];
+          $collegename=$_POST["collegename"];
+          $branch=$_POST["dept"];
+          $year=$_POST['year'];
+          $event=$_POST['event'];
+          $eventid=$_POST['eventid'];
+          if(!empty($firstname) && !empty($lastname) && !empty($collegeid) && !empty($phoneno) && !empty($email) && !empty($collegename) && !empty($branch) && !empty($year) && !empty($event))
+          { 
+                $query = "SELECT `email` FROM `registrations` WHERE `event` = '$event' and `collegeid` = '$collegeid'";
+                
+                if($query_run = mysqli_query($mycon,$query))
+                {
+                    $num_rows = mysqli_num_rows($query_run);
+                    if($num_rows == 1)
+                    { 
+                        $query2 = "SELECT `f_code` `clientcode` FROM `payments` WHERE `udf4` = '$eventid' AND `f_code`='Ok'";
+                        
+                        $result = mysqli_query($mycon,$query2);
+                        $count = mysqli_num_rows($result);
+                        if($count > 0 )
+                        {
+                            $redirecturl="index.html" ;
+                            echo '<script type="application/javascript"> alert("User is aleardy Registered");
+                            window.location.href="'.$redirecturl.'";
+                            </script>';
+                            exit();
+                             
+                        }
+                    }
+                    else
+                    {
+                        $query = "INSERT INTO registrations VALUES ('$firstname','$lastname','$gender','$collegeid','$phoneno','$email','$collegename','$branch','$year','$event','$eventid')";
+                        mysqli_query($mycon,$query);
+                    }
+                }
+                
+            }
+          
+        }
+
 $amt=$_POST['eventamt'];
 $redirecturl="http://localhost/Ripple2K23/Response.php";
 $stname=$_POST['fname'];

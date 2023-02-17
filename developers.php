@@ -28,7 +28,7 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="si-pic">
-                                    <img src="img/team-member/teja_black.jpg" alt="" style="height:350px;width:350px;">
+                                    <img src="img/team-member/theja1.png" alt="" style="height:350px;width:350px;">
                                 </div>
                             </div>
                             <div class="col-lg-6">
