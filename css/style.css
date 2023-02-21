@@ -399,14 +399,15 @@ ol {
 }
 
 .hero-section .hero-text span {
-	font-size: 16px;
+	font-size: 20px;
 	color: #f44949;
 	text-transform: uppercase;
 	letter-spacing: 2px;
+	background-color: #e7e7e8;
 }
 
 .hero-section .hero-text h2 {
-	font-size: 60px;
+	font-size: 80px;
 	color: #ffffff;
 	line-height: 72px;
 	font-weight: 600;
@@ -499,6 +500,7 @@ ol {
 
 .ha-text {
 	padding-top: 74px;
+	
 }
 
 .ha-text h2 {
@@ -510,6 +512,7 @@ ol {
 
 .ha-text p {
 	margin-bottom: 21px;
+	text-align: justify;
 }
 
 .ha-text ul {
@@ -919,6 +922,7 @@ ol {
 	color: #ffffff;
 	font-weight: 600;
 	line-height: 36px;
+	
 }
 
 .latest-item.large-item .li-text span {
@@ -951,6 +955,7 @@ ol {
 
 .latest-item .li-text h5 {
 	margin-bottom: 5px;
+	background-color: #f5523b;
 }
 
 .latest-item .li-text h5 a {
@@ -1284,6 +1289,7 @@ ol {
 
 .about-section .section-title p.f-para {
 	margin-bottom: 20px;
+	text-align: justify;
 }
 
 .about-pic {

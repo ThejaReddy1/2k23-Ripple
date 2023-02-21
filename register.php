@@ -11,7 +11,7 @@ session_start();
     if($event=="Coding") $eventamt="150";
     if($event=="Paper Presentation") $eventamt="150";
     if($event=="Poster Presentation") $eventamt="150";
-    if($event=="Web Development") $eventamt="150";
+    if($event=="Web Designing") $eventamt="150";
     if($event=="Technical Quiz") $eventamt="100";
 
 
@@ -22,7 +22,7 @@ session_start();
     if($event=="Coding") $eventid="CD".sprintf("%03d",($rows+1));
     if($event=="Paper Presentation") $eventid="PP".sprintf("%03d",($rows+1));
     if($event=="Poster Presentation") $eventid="PO".sprintf("%03d",($rows+1));
-    if($event=="Web Development") $eventid="WD".sprintf("%03d",($rows+1));
+    if($event=="Web Designing") $eventid="WD".sprintf("%03d",($rows+1));
     if($event=="Technical Quiz") $eventid="TQ".sprintf("%03d",($rows+1));
 ?>
 <!DOCTYPE html>

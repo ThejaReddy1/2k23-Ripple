@@ -92,13 +92,13 @@
             <div class="small-box bg-secondary">
               <div class="inner">
               <?php
-                  $query="SELECT * from registrations Where `event` = 'Web Development'";
+                  $query="SELECT * from registrations Where `event` = 'Web Designing'";
                   $query_run=mysqli_query($mycon,$query);
                   $count=mysqli_num_rows($query_run);
                   echo "<h3>$count</h3>"
                 ?>
 
-                <p>Web Development</p>
+                <p>Web Designing</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
