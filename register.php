@@ -97,7 +97,7 @@ session_start();
                                     <div class="col-md-12">
                                         <div class="form-group mb-3">
                                             <label for="clgname">College Name</label>
-                                            <input class="form-control" type="text" id="clgname" name="collegename" placeholder="Enter your College Name" required pattern='[a-zA-Z]+'>
+                                            <input class="form-control" type="text" id="clgname" name="collegename" placeholder="Enter your College Name" required pattern='[a-zA-Z]+/s[a-Z]'>
                                             
                                         </div>
                                     </div>

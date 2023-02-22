@@ -48,7 +48,7 @@
         }
 
 $amt=$_POST['eventamt'];
-$redirecturl="http://localhost/Ripple2K23/Response.php";
+$redirecturl="http://localhost/Ripple2k23/response.php";
 $stname=$_POST['fname'];
 $stemail=$_POST['email'];
 $stphone=$_POST['phone'];

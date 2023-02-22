@@ -1,17 +1,17 @@
 <?php include "header.php" ?>
 <?php
-    echo $f_code=$_POST['f_code'];
+    $f_code=$_POST['f_code'];
     if($f_code=='Ok')
     {
         ?>
     <div>
-        <div class="conatct" style="margin:100px;">
+        <div class="conatct" >
             <div class="alert alert-success">Successfully Registred<br>Thank You.</div>
                 <div class="card">
                     <div class="card-body border" id="printable">
                         <div class="row">
-                            <div class="col-sm-12">
-                                <img src="img/receipt.png" alt="Ripple Banner" height="200px" width="100%"/>
+                            <div class="col-sm-24">
+                                <img src="img/receipt.png" alt="Ripple Banner" align="center"  style="min-width:100% min-height=200px"/>
                             </div>
                         </div>
                     <div class="row invoice-info">
@@ -98,5 +98,7 @@
         }
     
     </script>
+    <div>
+        <?php include "footer.php" ?>
+    </div>
 </body>
-<?php include "footer.php" ?>
